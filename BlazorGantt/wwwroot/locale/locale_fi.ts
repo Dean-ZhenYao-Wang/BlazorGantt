@@ -1,0 +1,73 @@
+const locale = {
+	date: {
+		month_full: ["Tammikuu", "Helmikuu", "Maaliskuu", "Huhtikuu", "Toukokuu", "Kes&auml;kuu", "Hein&auml;kuu", "Elokuu", "Syyskuu", "Lokakuu", "Marraskuu", "Joulukuu"],
+		month_short: ["Tam", "Hel", "Maa", "Huh", "Tou", "Kes", "Hei", "Elo", "Syy", "Lok", "Mar", "Jou"],
+		day_full: ["Sunnuntai", "Maanantai", "Tiistai", "Keskiviikko", "Torstai", "Perjantai", "Lauantai"],
+		day_short: ["Su", "Ma", "Ti", "Ke", "To", "Pe", "La"]
+	},
+	labels: {
+		new_task: "Uusi tehtävä",
+		icon_save: "Tallenna",
+		icon_cancel: "Peru",
+		icon_details: "Tiedot",
+		icon_edit: "Muokkaa",
+		icon_delete: "Poista",
+		confirm_closing: "", // Your changes will be lost, are your sure ?
+		confirm_deleting: "Haluatko varmasti poistaa tapahtuman?",
+		section_description: "Kuvaus",
+		section_time: "Aikajakso",
+		section_type: "Type",
+		/* grid columns */
+
+		column_wbs: "WBS",
+		column_text: "Task name",
+		column_start_date: "Start time",
+		column_duration: "Duration",
+		column_add: "",
+
+		/* link confirmation */
+		link: "Link",
+		confirm_link_deleting: "will be deleted",
+		link_start: " (start)",
+		link_end: " (end)",
+
+		type_task: "Task",
+		type_project: "Project",
+		type_milestone: "Milestone",
+
+
+		minutes: "Minutes",
+		hours: "Hours",
+		days: "Days",
+		weeks: "Week",
+		months: "Months",
+		years: "Years",
+
+		/* message popup */
+		message_ok: "OK",
+		message_cancel: "Peru",
+
+		/* constraints */
+		section_constraint: "Constraint",
+		constraint_type: "Constraint type",
+		constraint_date: "Constraint date",
+		asap: "As Soon As Possible",
+		alap: "As Late As Possible",
+		snet: "Start No Earlier Than",
+		snlt: "Start No Later Than",
+		fnet: "Finish No Earlier Than",
+		fnlt: "Finish No Later Than",
+		mso: "Must Start On",
+		mfo: "Must Finish On",
+
+		/* resource control */
+		resources_filter_placeholder: "type to filter",
+		resources_filter_label: "hide empty",
+
+		/* empty state screen */
+		empty_state_text_link: "Click here",
+		empty_state_text_description: "to create your first task"
+	}
+};
+
+export default locale;
