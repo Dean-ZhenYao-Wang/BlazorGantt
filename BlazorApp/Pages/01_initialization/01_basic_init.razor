@@ -1,0 +1,42 @@
+﻿@page "/01_initialization/01_basic_init"
+<style>
+    html, body {
+        height: 100%;
+        padding: 0px;
+        margin: 0px;
+        overflow: hidden;
+    }
+</style>
+<Gantt id="gantt_here" Data="data" />
+
+@code {
+        private GanttData data = new GanttData()
+        {
+            data = new List<BlazorGantt.Task>()
+            {
+                new BlazorGantt.Task()
+                {
+                    id="1",Text="Project #2",start_date=new DateTime(2024,04,01).ToString("dd-MM-yyyy"),Duration=18,Progress=0.4m,Open=true
+                },
+                new BlazorGantt.Task()
+                {
+                    id="2",Text="Task #1",start_date=new DateTime(2024,04,02).ToString("dd-MM-yyyy"),Duration=8,Progress=0.6m,Parent="1"
+                },
+                new BlazorGantt.Task()
+                {
+                    id="3",Text="Task #2",start_date=new DateTime(2024,04,11).ToString("dd-MM-yyyy"),Duration=8,Progress=0.6m,Parent="1"
+                }
+            },
+            links = new List<BlazorGantt.Link>()
+            {
+                new BlazorGantt.Link()
+                {
+                    Id="1",Source="1",Target="2",Type="1"
+                },
+                new BlazorGantt.Link()
+                {
+                    Id="2",Source="2",Target="3",Type="0"
+                }
+            }
+        };
+}

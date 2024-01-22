@@ -1,15 +1,18 @@
 @inject IJSRuntime JS
-<div class="@CssClass" style="@style" id="@id">
-</div>
+<div class="@CssClass" style="@style" id="@id"></div>
 @code {
     [Parameter] public string id { get; set; } = Guid.NewGuid().ToString();
     [Parameter] public string CssClass { get; set; }
     [Parameter] public string style { get; set; } = "width:1000px; height:400px;";
+    [Parameter] public GanttData Data { get; set; }
+    [Parameter] public string date_format { get; set; } = "%Y-%m-%d %H:%i:%s";
+
     protected override async System.Threading.Tasks.Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
             await JS.InvokeVoidAsync("gantt.init", this.id);
+            await JS.InvokeVoidAsync("gantt.parse", this.Data);
         }
     }
 }
