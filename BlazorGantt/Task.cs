@@ -11,7 +11,7 @@ namespace BlazorGantt
         /// <summary>
         /// 任务id，如果未设置则自动生成
         /// </summary>
-        public string id { get; set; } = Guid.NewGuid().ToString();
+        public dynamic id { get; set; } = Guid.NewGuid().ToString();
         /// <summary>
         /// 计划任务开始的日期。如果未指定，Gantt将根据end_date和duration属性进行计算。当设置unscheduled:true时，该属性变为可选属性。
         /// </summary>
@@ -75,10 +75,11 @@ namespace BlazorGantt
         /// 指定最初是否打开任务分支（以显示子任务）。要在Gantt初始化后关闭/打开分支，请使用相关方法：close（）和open（）
         /// </summary>
         public bool Open { get; set; }
+        public decimal sortorder { get; set; }
         /// <summary>
         /// 父任务的id。如果指定的父级不存在，则任务将不会在甘特图中呈现。根任务的id由root_id配置指定。
         /// </summary>
-        public string Parent { get; set; }
+        public dynamic Parent { get; set; }
         /// <summary>
         /// 任务的进度（从0到1）
         /// </summary>
@@ -133,9 +134,9 @@ namespace BlazorGantt
     }
     public class Link
     {
-        public string Id { get; set; }
-        public string Source { get; set; }
-        public string Target { get; set; }
+        public dynamic Id { get; set; }
+        public dynamic Source { get; set; }
+        public dynamic Target { get; set; }
         public string? Type { get; set; }
     }
 }

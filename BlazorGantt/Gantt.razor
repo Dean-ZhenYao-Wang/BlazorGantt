@@ -4,15 +4,37 @@
     [Parameter] public string id { get; set; } = Guid.NewGuid().ToString();
     [Parameter] public string CssClass { get; set; }
     [Parameter] public string style { get; set; } = "width:1000px; height:400px;";
-    [Parameter] public GanttData Data { get; set; }
-    [Parameter] public string date_format { get; set; } = "%Y-%m-%d %H:%i:%s";
+    [Parameter] public GanttData? Data { get; set; }
+    [Parameter] public string? JsonSrc { get; set; }
+
+
+
+    [Parameter] public string date_format { get; set; } = "%d-%m-%Y %H:%i:%s";
 
     protected override async System.Threading.Tasks.Task OnAfterRenderAsync(bool firstRender)
     {
+        await JS.InvokeVoidAsync("gantt.clearAll");
         if (firstRender)
         {
+            await JS.InvokeVoidAsync("import","./_content/BlazorGantt/Gantt.razor.js");
+            await JS.InvokeVoidAsync("gantt.set_config_date_format", this.date_format);
+
             await JS.InvokeVoidAsync("gantt.init", this.id);
-            await JS.InvokeVoidAsync("gantt.parse", this.Data);
+            if (Data is not null)
+                await JS.InvokeVoidAsync("gantt.parse", this.Data);
+            if (JsonSrc is not null)
+            {
+                await JS.InvokeVoidAsync("gantt.load", JsonSrc,"json");
+            }
         }
+    }
+    public class JsonData
+    {
+        public List<Task> data{ get; set; }
+        public JsonDataCollections collections{ get; set; }
+    }
+    public class JsonDataCollections
+    {
+        public List<Link> links{ get; set; }
     }
 }

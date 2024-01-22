@@ -185,7 +185,6 @@
     <None Include="wwwroot\ext\drag_timeline\eventsManager.ts" />
     <None Include="wwwroot\ext\drag_timeline\index.ts" />
     <None Include="wwwroot\ext\export_api\index.ts" />
-    <None Include="wwwroot\ext\extensions_gpl.js" />
     <None Include="wwwroot\ext\extension_manager.ts" />
     <None Include="wwwroot\ext\fullscreen\index.ts" />
     <None Include="wwwroot\ext\keyboard_navigation.js" />

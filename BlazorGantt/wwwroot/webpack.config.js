@@ -6,6 +6,9 @@ module.exports = {
         filename: 'BlazorGantt.js', // 输出文件名，根据实际情况进行更改
         path: __dirname // 输出目录路径，根据实际情况进行更改
     },
+    optimization: {
+        minimize: true //是否启用混淆压缩
+    },
     resolve: {
         extensions: [".ts", ".js"],
         fallback: {
