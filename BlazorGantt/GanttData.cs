@@ -11,4 +11,5 @@ namespace BlazorGantt
         public List<Task> data { get; set; }
         public List<Link> links { get; set; }
     }
+
 }
