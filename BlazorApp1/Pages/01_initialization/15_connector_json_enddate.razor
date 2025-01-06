@@ -1,0 +1,25 @@
+﻿@page "/01_initialization/15_connector_json_enddate"
+<script src="../common/webserver_warning.js"></script>
+
+<Gantt @ref=gantt firstRender=init style="width: 100%;height: 80vh;"></Gantt>
+@code {
+	private Gantt gantt;
+	private string attachEvent_onAjaxError_funcStr =
+	   @"  if (!request.status || !request.response){
+			gantt.message({
+				text: webserverWarningText,
+				expire: -1
+			})
+		}
+	    return true;";
+	private void init()
+	{
+		gantt.attachEvent("onAjaxError", attachEvent_onAjaxError_funcStr);
+		gantt.set_Config(new
+		{
+			date_format = "%Y-%m-%d %H:%i:%s"
+		});
+		gantt.init();
+		gantt.load("../common/data_start_end_dates.json");
+	}
+}

@@ -1,0 +1,64 @@
+﻿@page "/01_initialization/12_localization"
+<link rel="stylesheet" href="../common/controls_styles.css">
+<style>
+	#gantt_here {
+	width: 100%;
+	height: 800px;
+	height: calc(100vh - 52px);
+	}
+
+</style>
+<div class="gantt_control">
+	<label>Current locale:</label>
+	<select class="locale_changer" @onchange="e=>changeLocale(e.Value.ToString())">
+		<option class="locale_" value="">Choose locale</option>
+		<option class="locale_ar" value="ar">Arabic</option>
+		<option class="locale_be" value="be">Belarusian</option>
+		<option class="locale_ca" value="ca">Catalan</option>
+		<option class="locale_cn" value="cn">Chinese</option>
+		<option class="locale_hr" value="hr">Croatian</option>
+		<option class="locale_cs" value="cs">Czech</option>
+		<option class="locale_da" value="da">Danish</option>
+		<option class="locale_nl" value="nl">Dutch</option>
+		<option class="locale_" value="">English</option>
+		<option class="locale_fi" value="fi">Finnish</option>
+		<option class="locale_fr" value="fr" selected>French</option>
+		<option class="locale_de" value="de">German</option>
+		<option class="locale_el" value="el">Greek</option>
+		<option class="locale_he" value="he">Hebrew</option>
+		<option class="locale_hu" value="hu">Hungarian</option>
+		<option class="locale_id" value="id">Indonesian</option>
+		<option class="locale_it" value="it">Italian</option>
+		<option class="locale_jp" value="jp">Japanese</option>
+		<option class="locale_kr" value="kr">Korean</option>
+		<option class="locale_no" value="no">Norwegian</option>
+		<option class="locale_nb" value="nb">Norwegian BokmÃ¥l</option>
+		<option class="locale_fa" value="fa">Persian</option>
+		<option class="locale_pl" value="pl">Polish</option>
+		<option class="locale_pt" value="pt">Portuguese</option>
+		<option class="locale_ro" value="ro">Romanian</option>
+		<option class="locale_ru" value="ru">Russian</option>
+		<option class="locale_sk" value="sk">Slovak</option>
+		<option class="locale_si" value="si">Slovenian</option>
+		<option class="locale_es" value="es">Spanish</option>
+		<option class="locale_sv" value="sv">Swedish</option>
+		<option class="locale_tr" value="tr">Turkish</option>
+		<option class="locale_ua" value="ua">Ukrainian</option>
+	</select>
+</div>
+<Gantt @ref=gantt firstRender=init id="gantt_here" />
+
+@code {
+	private Gantt gantt;
+	private void changeLocale(string lang)
+	{
+		gantt.i18n_setLocale(lang);
+		gantt.init();
+	}
+	private async Task init()
+	{
+		changeLocale("fr");
+		gantt.init();
+		gantt.parse(common.testdata.demo_tasks);
+	}
+}

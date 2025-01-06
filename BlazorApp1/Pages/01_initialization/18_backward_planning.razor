@@ -1,0 +1,14 @@
+﻿@page "/01_initialization/18_backward_planning"
+
+<Gantt @ref=gantt firstRender=init style="width: 100%;height: 80vh;"></Gantt>
+
+@code {
+    private Gantt gantt;
+    private void init()
+    {
+        gantt.set_property("config.date_format", "%Y-%m-%d %H:%i:%s");
+        gantt.init();
+        gantt.message(new MessageObject { text = "Task schedules are calculated from an <b>end dates</b> and <b>durations</b>", expire = -1 });
+        gantt.parse(common.testdata.data_end_dates);
+    }
+}

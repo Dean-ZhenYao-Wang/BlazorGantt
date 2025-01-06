@@ -1,0 +1,48 @@
+﻿@page "/01_initialization/11_clickable_links"
+@inject IJSRuntime JS
+
+<Gantt @ref=gantt firstRender=init style="width:1020px; height:400px;" />
+
+@code {
+    private string id = Guid.NewGuid().ToString();
+    private Gantt gantt;
+    private DotNetObjectReference<_11_clickable_links>? dotNetRef;
+    protected override void OnInitialized()
+    {
+        dotNetRef = DotNetObjectReference.Create(this);
+    }
+    private async Task init()
+    {
+        gantt.init();
+        gantt.parse(common.testdata.demo_tasks);
+        JS.InvokeVoidAsync("BlazorGantt.add_to_dictionary", this.id, this.dotNetRef);
+        //可以把父组件的dotnet传递进去使用
+        gantt.attachEvent("onLinkClick", @$"let dotnet = BlazorGantt.get_from_dictionary('{this.id}');dotnet.invokeMethodAsync('onLinkClick',id);");
+    }
+    [JSInvokable]
+    public async Task onLinkClick(string id)
+    {
+        Task_Link link = await this.gantt.getLink(id);
+        Task_Data src = await this.gantt.getTask(link.source);
+        Task_Data trg = await this.gantt.getTask(link.target);
+        Config_Link types = await this.gantt.get_Property<Config_Link>("config.links");
+        string first = string.Empty;
+        string second = string.Empty;
+        if (link.type.Equals(types.finish_to_start))
+        {
+            first = "finish";
+            second = "start";
+        }
+        else if (link.type.Equals(types.start_to_start))
+        {
+            first = "start";
+            second = "start";
+        }
+        else if (link.type.Equals(types.finish_to_finish))
+        {
+            first = "finish";
+            second = "finish";
+        }
+        this.gantt.message("Must " + first + " <b>" + src.text + "</b> to " + second + " <b>" + trg.text + "</b>");
+    }
+}

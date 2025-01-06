@@ -6,12 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>BlazorApp1</title>
     <base href="/" />
-    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/app.css" rel="stylesheet" />
-    <link href="BlazorApp1.styles.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="common/codehighlight/codemirror.css">
+    <link rel="stylesheet" type="text/css" href="common/docs.css">
+    <script src="common/codehighlight/codemirror.js"></script>
+    <script src="common/codehighlight/xml.js"></script>
+    <script src="common/codehighlight/htmlmixed.js"></script>
+    <script src="common/codehighlight/javascript.js"></script>
+    <script src="common/bodyScrollLock.min.js"></script>
+    <script src="common/sample_navigation.js"></script>
+
+    <link href="_content/BlazorGantt/index.css" rel="stylesheet" />
 </head>
 
-<body>
+<body style="overflow: hidden;">
     <div id="app">Loading...</div>
 
     <div id="blazor-error-ui">
@@ -20,6 +27,8 @@
         <a class="dismiss">🗙</a>
     </div>
     <script src="_framework/blazor.webassembly.js"></script>
+    <script src="_content/BlazorGantt/index.js" type="module"></script>
+
 </body>
 
 </html>

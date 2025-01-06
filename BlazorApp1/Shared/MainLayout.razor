@@ -1,17 +1,306 @@
 ﻿@inherits LayoutComponentBase
+@inject IJSRuntime JS
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+<header>
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
+	<div class="toggle-list-title mobile" onclick="toggle_list()">Gantt Samples</div>
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+	<div class="toggle-list-btn mobile" onclick="toggle_list()">
+		<div class="toggle-list-btn__row"></div>
+		<div class="toggle-list-btn__row"></div>
+		<div class="toggle-list-btn__row"></div>
+	</div>
+
+	<div class="site-menu m-dropdown desktop">
+		<div class="menu-link-block">
+			<a href="//docs.dhtmlx.com/gantt/" title="" class="menu-link" target="_blank">Documentation</a>
+		</div>
+
+		<div class="menu-link-block">
+			<a href="//docs.dhtmlx.com/gantt/api__refs__gantt" title="" class="menu-link" target="_blank">
+				Gantt API
+			</a>
+		</div>
+
+		<div class="menu-link-block">
+			<a href="//forum.dhtmlx.com/c/gantt" title="" class="menu-link" target="_blank">Developer forum</a>
+		</div>
+	</div>
+</header>
+
+<section class="page-body">
+	<div class="page-aside" id="page-aside" onclick="toggle_mobile_menu(event);">
+		<div class="page-aside__container">
+			<div class="close-page-aside-wrapper">
+				<div class="close-page-aside" onclick="toggle_list()">
+					<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<g id="assets/close">
+							<path id="Vector" d="M5 6.41L6.41 5L12 10.59L17.59 5L19 6.41L13.41 12L19 17.59L17.59 19L12 13.41L6.41 19L5 17.59L10.59 12L5 6.41Z" fill="#606770"></path>
+						</g>
+					</svg>
+				</div>
+			</div>
+			<div class="page-aside__inside">
+				<!-- main burger  -->
+				<div class="page-aside__head desktop">
+					<div class="page-aside__head-title" onclick="toggle_list()">Gantt samples</div>
+					<div class="toggle-list-btn" onclick="toggle_list()">
+						<svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<g id="assets/angle-dbl-right">
+								<path id="Vector" d="M18.41 7.41L17 6L11 12L17 18L18.41 16.59L13.83 12L18.41 7.41ZM12.41 7.41L11 6L4.99997 12L11 18L12.41 16.59L7.82997 12L12.41 7.41Z" fill="#2095F3"></path>
+							</g>
+						</svg>
+					</div>
+				</div>
+				<!-- mobile-site-menu  -->
+				<div class="mobile-site-menu">
+					<div class="mobile-site-menu__row">
+						<span class="mobile-menu-title">Resources</span>
+					</div>
+					<div class="mobile-site-menu__row">
+						<a href="//docs.dhtmlx.com/gantt/" title="" class="mobile-menu-link" target="_blank">Documentation</a>
+					</div>
+					<div class="mobile-site-menu__row">
+						<a href="//docs.dhtmlx.com/gantt/api__refs__gantt" title="" class="mobile-menu-link" target="_blank">Gantt API</a>
+					</div>
+					<div class="mobile-site-menu__row">
+						<a href="//forum.dhtmlx.com/c/gantt" title="" class="mobile-menu-link" target="_blank">Developer forum</a>
+					</div>
+					<div class="mobile-site-menu__row">
+						<span class="mobile-menu-title">Gantt samples</span>
+					</div>
+				</div>
+				<!-- search-box -->
+				<div class="search-wrapper">
+					<div class="search-box">
+						<label class="search-elem">
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+								<path d="M7.91667 2.5C9.35326 2.5 10.731 3.07068 11.7468 4.0865C12.7627 5.10233 13.3333 6.48008 13.3333 7.91667C13.3333 9.25833 12.8417 10.4917 12.0333 11.4417L12.2583 11.6667H12.9167L17.0833 15.8333L15.8333 17.0833L11.6667 12.9167V12.2583L11.4417 12.0333C10.4917 12.8417 9.25833 13.3333 7.91667 13.3333C6.48008 13.3333 5.10233 12.7627 4.0865 11.7468C3.07068 10.731 2.5 9.35326 2.5 7.91667C2.5 6.48008 3.07068 5.10233 4.0865 4.0865C5.10233 3.07068 6.48008 2.5 7.91667 2.5ZM7.91667 4.16667C5.83333 4.16667 4.16667 5.83333 4.16667 7.91667C4.16667 10 5.83333 11.6667 7.91667 11.6667C10 11.6667 11.6667 10 11.6667 7.91667C11.6667 5.83333 10 4.16667 7.91667 4.16667Z" fill="black" fill-opacity="0.3"></path>
+							</svg>
+							<input type="search" class="search-field" placeholder="Find samples" oninput="filterSamples(this.value)">
+						</label>
+						<span class="no_results">No results</span>
+					</div>
+				</div>
+				<!-- aside-nav links -->
+				<div class="aside-nav links">
+					<div class="aside-nav-item">
+						<label for="01_initialization">Initialization</label>
+						<input type="checkbox" id="01_initialization" class="toggler">
+						<div class="toggler-content active" data-highlighted="true">
+							<a data-folder="01_initialization" id="01_basic_init" class="link" href="01_initialization/01_basic_init">Basic initialization</a><a data-folder="01_initialization" id="02_load_json" class="link" href="01_initialization/02_load_json">Load data from JSON file</a><a data-folder="01_initialization" id="03_load_xml" class="link" href="01_initialization/03_load_xml">Load data from XML file</a><a data-folder="01_initialization" id="04_save_rest" class="link" href="01_initialization/04_save_rest">Backend storage using REST API</a><a data-folder="01_initialization" id="06_touch_forced" class="link" href="01_initialization/06_touch_forced">Forced touch mode</a><a data-folder="01_initialization" id="07_jquery" class="link" href="01_initialization/07_jquery">jQuery integration</a><a data-folder="01_initialization" id="08_explicit_time_range" class="link" href="01_initialization/08_explicit_time_range">Define displayed date range</a><a data-folder="01_initialization" id="09_backward_compatibility" class="link" href="01_initialization/09_backward_compatibility">Loading data in Gantt 1.6 format</a><a data-folder="01_initialization" id="10_fixed_size" class="link" href="01_initialization/10_fixed_size">Fixed size gantt</a><a data-folder="01_initialization" id="11_clickable_links" class="link" href="01_initialization/11_clickable_links">Clickable links</a><a data-folder="01_initialization" id="12_localization" class="link" href="01_initialization/12_localization">Localization</a><a data-folder="01_initialization" id="13_project_duration" class="link" href="01_initialization/13_project_duration">Project duration</a><a data-folder="01_initialization" id="14_reinitializtion" class="link" href="01_initialization/14_reinitializtion">ReInit in different container</a><a data-folder="01_initialization" id="15_connector_json_enddate" class="link" href="01_initialization/15_connector_json_enddate">Loading tasks start/end dates</a><a data-folder="01_initialization" id="16_projects_and_milestones" class="link" href="01_initialization/16_projects_and_milestones">Projects and milestones</a><a data-folder="01_initialization" id="17_bootstrap" class="link" href="01_initialization/17_bootstrap">Bootstrap layout</a><a data-folder="01_initialization" id="18_backward_planning" class="link" href="01_initialization/18_backward_planning">Backward planning</a><a data-folder="01_initialization" id="19_tasks_without_dates" class="link" href="01_initialization/19_tasks_without_dates" data-highlighted="false">Show Unscheduled Tasks</a><a data-folder="01_initialization" id="20_tasks_outside_timescale" class="link" href="01_initialization/20_tasks_outside_timescale" data-highlighted="false">Tasks outside timescale</a><a data-folder="01_initialization" id="21_rollup_tasks" class="link active" href="01_initialization/21_rollup_tasks" data-highlighted="true">Rollup tasks and milestones</a>
+						</div>
+						<div class="toggler-icon">
+							<svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+								<path d="M7.15002 6.175L10.975 10L7.15002 13.825L8.33336 15L13.3334 10L8.33336 5L7.15002 6.175Z" fill="black" fill-opacity="0.5"></path>
+							</svg>
+						</div>
+					</div>
+					<div class="aside-nav-item">
+						<label for="02_extensions">Extensions</label>
+						<input type="checkbox" id="02_extensions" class="toggler">
+						<div class="toggler-content">
+							<a data-folder="02_extensions" id="01_quickinfo" class="link" href="./02_extensions/01_quickinfo">QuickInfo extension</a><a data-folder="02_extensions" id="02_tooltip" class="link" href="./02_extensions/02_tooltip">Tooltip</a><a data-folder="02_extensions" id="03_critical_path" class="link" href="./02_extensions/03_critical_path">Critical path</a><a data-folder="02_extensions" id="04_grid_resize" class="link" href="./02_extensions/04_grid_resize">Grid columns resize events</a><a data-folder="02_extensions" id="05_today_line" class="link" href="./02_extensions/05_today_line">Today and Status lines in Gantt (vertical markers)</a><a data-folder="02_extensions" id="06_dynamic_loading" class="link" href="./02_extensions/06_dynamic_loading">Loading subtasks on demand (branch loading)</a><a data-folder="02_extensions" id="07_managing_grid_columns" class="link" href="./02_extensions/07_managing_grid_columns">Hiding grid columns</a><a data-folder="02_extensions" id="08_tasks_grouping" class="link" href="./02_extensions/08_tasks_grouping">Tasks grouping</a><a data-folder="02_extensions" id="09_multiselection" class="link" href="./02_extensions/09_multiselection">Multiselection and Indent/Outdent tasks</a><a data-folder="02_extensions" id="10_tasks_grouping_multilevel" class="link" href="./02_extensions/10_tasks_grouping_multilevel">Multi level task grouping</a><a data-folder="02_extensions" id="11_full_screen" class="link" href="./02_extensions/11_full_screen">Full Screen</a><a data-folder="02_extensions" id="12_auto_scheduling" class="link" href="./02_extensions/12_auto_scheduling">Auto Scheduling extension</a><a data-folder="02_extensions" id="13_smart_rendering" class="link" href="./02_extensions/13_smart_rendering">Working with 30000 tasks</a><a data-folder="02_extensions" id="14_undo" class="link" href="./02_extensions/14_undo">Undo/Redo changes in Gantt</a><a data-folder="02_extensions" id="16_keyboard_navigation" class="link" href="./02_extensions/16_keyboard_navigation">Keyboard Navigation</a><a data-folder="02_extensions" id="17_keyboard_navigation_cell" class="link" href="./02_extensions/17_keyboard_navigation_cell">Keyboard Navigation - navigate cells</a><a data-folder="02_extensions" id="18_linked_tasks" class="link" href="./02_extensions/18_linked_tasks">Auto Scheduling - Groups of connected tasks</a><a data-folder="02_extensions" id="19_constraints_scheduling" class="link" href="./02_extensions/19_constraints_scheduling">Auto-Schedule From Project Start &amp; Constraints</a><a data-folder="02_extensions" id="20_backwards_scheduling" class="link" href="./02_extensions/20_backwards_scheduling">Auto-Schedule From Project End (backward)</a><a data-folder="02_extensions" id="21_overlay" class="link" href="./02_extensions/21_overlay">Gantt chart with overlay and zoom (S-Curve)</a><a data-folder="02_extensions" id="22_tooltip_api" class="link" href="./02_extensions/22_tooltip_api">Custom Tooltips</a><a data-folder="02_extensions" id="23_click_drag_splittask" class="link" href="./02_extensions/23_click_drag_splittask">Create split tasks by Drag and Drop</a><a data-folder="02_extensions" id="24_click_drag" class="link" href="./02_extensions/24_click_drag">Create new tasks by Drag and Drop</a><a data-folder="02_extensions" id="25_click_drag_select_by_drag" class="link" href="./02_extensions/25_click_drag_select_by_drag">Select multiple tasks by Drag and Drop</a><a data-folder="02_extensions" id="26_full_screen_with_additional_elements" class="link" href="./02_extensions/26_full_screen_with_additional_elements">Full Screen with additional elements</a><a data-folder="02_extensions" id="27_drag_timeline" class="link" href="./02_extensions/27_drag_timeline">Drag timeline</a><a data-folder="02_extensions" id="28_row_resize" class="link" href="./02_extensions/28_row_resize">Resizable rows in grid</a><a data-folder="02_extensions" id="28_tasks_grouping_save_tree_structure" class="link" href="./02_extensions/28_tasks_grouping_save_tree_structure">Save tree structure when grouping tasks</a>
+						</div>
+						<div class="toggler-icon">
+							<svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+								<path d="M7.15002 6.175L10.975 10L7.15002 13.825L8.33336 15L13.3334 10L8.33336 5L7.15002 6.175Z" fill="black" fill-opacity="0.5"></path>
+							</svg>
+						</div>
+					</div>
+					<div class="aside-nav-item">
+						<label for="03_scales">Scales</label>
+						<input type="checkbox" id="03_scales" class="toggler">
+						<div class="toggler-content">
+							<a data-folder="03_scales" id="01_multiple_scales" class="link" href="./03_scales/01_multiple_scales">Multiple scales</a><a data-folder="03_scales" id="02_month_days" class="link" href="./03_scales/02_month_days">Month view</a><a data-folder="03_scales" id="03_full_year" class="link" href="./03_scales/03_full_year">Step config for the Quarter scale</a><a data-folder="03_scales" id="04_days" class="link" href="./03_scales/04_days">Day hours</a><a data-folder="03_scales" id="05_dynamic_scales" class="link" href="./03_scales/05_dynamic_scales">Dynamic scales</a><a data-folder="03_scales" id="06_custom_scales" class="link" href="./03_scales/06_custom_scales">Custom scales</a><a data-folder="03_scales" id="07_minutes_scale" class="link" href="./03_scales/07_minutes_scale">Minutes timeline</a><a data-folder="03_scales" id="08_scale_autoconfig" class="link" href="./03_scales/08_scale_autoconfig">Auto resize scale</a><a data-folder="03_scales" id="09_skip_weekends" class="link" href="./03_scales/09_skip_weekends">Not render weekends on the scale</a><a data-folder="03_scales" id="10_working_hours" class="link" href="./03_scales/10_working_hours">Show working hours</a><a data-folder="03_scales" id="11_select_column" class="link" href="./03_scales/11_select_column">Selecting columns</a><a data-folder="03_scales" id="12_year_quarters" class="link" href="./03_scales/12_year_quarters">Year quarters scale</a><a data-folder="03_scales" id="13_zoom_to_fit" class="link" href="./03_scales/13_zoom_to_fit">Zoom To Fit</a><a data-folder="03_scales" id="14_scale_zoom_by_wheelmouse" class="link" href="./03_scales/14_scale_zoom_by_wheelmouse">Mouse wheel zoom</a>
+						</div>
+						<div class="toggler-icon">
+							<svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+								<path d="M7.15002 6.175L10.975 10L7.15002 13.825L8.33336 15L13.3334 10L8.33336 5L7.15002 6.175Z" fill="black" fill-opacity="0.5"></path>
+							</svg>
+						</div>
+					</div>
+					<div class="aside-nav-item">
+						<label for="04_customization">Customization</label>
+						<input type="checkbox" id="04_customization" class="toggler">
+						<div class="toggler-content">
+							<a data-folder="04_customization" id="01_outer_content" class="link" href="./04_customization/01_outer_content">Define side content</a><a data-folder="04_customization" id="02_custom_tree" class="link" href="./04_customization/02_custom_tree">Custom tree formatting</a><a data-folder="04_customization" id="03_link_styles" class="link" href="./04_customization/03_link_styles">Link styles</a><a data-folder="04_customization" id="04_task_styles" class="link" href="./04_customization/04_task_styles">Task styles</a><a data-folder="04_customization" id="05_tree_template" class="link" href="./04_customization/05_tree_template">Template for tree nodes</a><a data-folder="04_customization" id="06_highlight_weekend" class="link" href="./04_customization/06_highlight_weekend">Highlighting weekends</a><a data-folder="04_customization" id="07_progress_text" class="link" href="./04_customization/07_progress_text">Text in the Progress bar</a><a data-folder="04_customization" id="08_templates" class="link" href="./04_customization/08_templates">Styling task bars with events</a><a data-folder="04_customization" id="09_html_content" class="link" href="./04_customization/09_html_content">Custom html content (Stackbar)</a><a data-folder="04_customization" id="10_context_menu" class="link" href="./04_customization/10_context_menu">Context menu to control tasks</a><a data-folder="04_customization" id="11_split_task" class="link" href="./04_customization/11_split_task">Split task</a><a data-folder="04_customization" id="12_custom_task_type" class="link" href="./04_customization/12_custom_task_type">Custom task type</a><a data-folder="04_customization" id="13_autosize_container" class="link" href="./04_customization/13_autosize_container">Expand container (autosize)</a><a data-folder="04_customization" id="14_deadline" class="link" href="./04_customization/14_deadline">Displaying deadlines</a><a data-folder="04_customization" id="15_baselines" class="link" href="./04_customization/15_baselines">Display baselines</a><a data-folder="04_customization" id="16_inline_task_colors" class="link" href="./04_customization/16_inline_task_colors">Specify inline colors for Tasks and Links</a><a data-folder="04_customization" id="17_classic_gantt_look" class="link" href="./04_customization/17_classic_gantt_look">Classic Look</a><a data-folder="04_customization" id="18_subtasks_displaying" class="link" href="./04_customization/18_subtasks_displaying">Display subtasks when the Project is closed</a><a data-folder="04_customization" id="19_task_type" class="link" href="./04_customization/19_task_type">Create summary tasks dynamically (auto_types)</a><a data-folder="04_customization" id="20_message_types" class="link" href="./04_customization/20_message_types">Gantt message types</a><a data-folder="04_customization" id="21_open_split_task" class="link" href="./04_customization/21_open_split_task">Expand and collapse split tasks</a><a data-folder="04_customization" id="22_draw_links_as_svg_images" class="link" href="./04_customization/22_draw_links_as_svg_images">Draw links as SVG images</a><a data-folder="04_customization" id="23_integration_with_suite" class="link" href="./04_customization/23_integration_with_suite">Integration with DHTMLX Suite</a><a data-folder="04_customization" id="24_timeline_cells_custom_content" class="link" href="./04_customization/24_timeline_cells_custom_content">Custom content inside the timeline cells</a><a data-folder="04_customization" id="25_project_dates" class="link" href="./04_customization/25_project_dates">Manually Scheduled Projects</a>
+						</div>
+						<div class="toggler-icon">
+							<svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+								<path d="M7.15002 6.175L10.975 10L7.15002 13.825L8.33336 15L13.3334 10L8.33336 5L7.15002 6.175Z" fill="black" fill-opacity="0.5"></path>
+							</svg>
+						</div>
+					</div>
+					<div class="aside-nav-item">
+						<label for="05_lightbox">Lightbox</label>
+						<input type="checkbox" id="05_lightbox" class="toggler">
+						<div class="toggler-content">
+							<a data-folder="05_lightbox" id="01_lightbox_customization" class="link" href="./05_lightbox/01_lightbox_customization">Lightbox customization</a><a data-folder="05_lightbox" id="02_checkbox" class="link" href="./05_lightbox/02_checkbox">Checkbox control</a><a data-folder="05_lightbox" id="02_progress_lightbox" class="link" href="./05_lightbox/02_progress_lightbox">Progress lightbox</a><a data-folder="05_lightbox" id="02_radio" class="link" href="./05_lightbox/02_radio">Radio control</a><a data-folder="05_lightbox" id="03_validation" class="link" href="./05_lightbox/03_validation">Validate lightbox values</a><a data-folder="05_lightbox" id="04_custom_editor" class="link" href="./05_lightbox/04_custom_editor">Custom control in the lightbox</a><a data-folder="05_lightbox" id="05_template" class="link" href="./05_lightbox/05_template">Template control</a><a data-folder="05_lightbox" id="06_custom_button" class="link" href="./05_lightbox/06_custom_button">Custom button in the lightbox</a><a data-folder="05_lightbox" id="07_time" class="link" href="./05_lightbox/07_time">Time control</a><a data-folder="05_lightbox" id="08_parent_selector" class="link" href="./05_lightbox/08_parent_selector">Parent selector</a><a data-folder="05_lightbox" id="09_years_selector_range" class="link" href="./05_lightbox/09_years_selector_range">Specify year selector range</a><a data-folder="05_lightbox" id="10_progress_slider" class="link" href="./05_lightbox/10_progress_slider">Slider control in lightbox</a><a data-folder="05_lightbox" id="11_datepicker_for_lightbox" class="link" href="./05_lightbox/11_datepicker_for_lightbox">Datepicker in lightbox</a><a data-folder="05_lightbox" id="12_select" class="link" href="./05_lightbox/12_select">Select control</a><a data-folder="05_lightbox" id="13_resources" class="link" href="./05_lightbox/13_resources">Resources control</a><a data-folder="05_lightbox" id="14_jquery_multiselect" class="link" href="./05_lightbox/14_jquery_multiselect">3rd party multiselect control</a><a data-folder="05_lightbox" id="15_readonly_lightbox" class="link" href="./05_lightbox/15_readonly_lightbox">Readonly lightbox</a>
+						</div>
+						<div class="toggler-icon">
+							<svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+								<path d="M7.15002 6.175L10.975 10L7.15002 13.825L8.33336 15L13.3334 10L8.33336 5L7.15002 6.175Z" fill="black" fill-opacity="0.5"></path>
+							</svg>
+						</div>
+					</div>
+					<div class="aside-nav-item">
+						<label for="06_skins">Skins</label>
+						<input type="checkbox" id="06_skins" class="toggler">
+						<div class="toggler-content">
+							<a data-folder="06_skins" id="01_default" class="link" href="./06_skins/01_default">Default skin</a><a data-folder="06_skins" id="02_default_lightbox" class="link" href="./06_skins/02_default_lightbox">Task edit form</a><a data-folder="06_skins" id="03_skyblue" class="link" href="./06_skins/03_skyblue">'Skyblue' skin</a><a data-folder="06_skins" id="04_meadow" class="link" href="./06_skins/04_meadow">'Meadow' skin</a><a data-folder="06_skins" id="05_broadway" class="link" href="./06_skins/05_broadway">'Broadway' skin</a><a data-folder="06_skins" id="06_dynamic_skin" class="link" href="./06_skins/06_dynamic_skin">Change skin dynamically</a><a data-folder="06_skins" id="07_high_contrast_black" class="link" href="./06_skins/07_high_contrast_black">High contrast theme - Black</a><a data-folder="06_skins" id="08_high_contrast_white" class="link" href="./06_skins/08_high_contrast_white">High contrast theme - White</a><a data-folder="06_skins" id="09_material" class="link" href="./06_skins/09_material">Material theme</a><a data-folder="06_skins" id="10_dark" class="link" href="./06_skins/10_dark">Dark skin</a>
+						</div>
+						<div class="toggler-icon">
+							<svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+								<path d="M7.15002 6.175L10.975 10L7.15002 13.825L8.33336 15L13.3334 10L8.33336 5L7.15002 6.175Z" fill="black" fill-opacity="0.5"></path>
+							</svg>
+						</div>
+					</div>
+					<div class="aside-nav-item">
+						<label for="07_grid">Grid</label>
+						<input type="checkbox" id="07_grid" class="toggler">
+						<div class="toggler-content">
+							<a data-folder="07_grid" id="01_builtin_sorting" class="link" href="./07_grid/01_builtin_sorting">Built-in sorting</a><a data-folder="07_grid" id="02_branch_ordering" class="link" href="./07_grid/02_branch_ordering">Branch ordering</a><a data-folder="07_grid" id="03_filtering" class="link" href="./07_grid/03_filtering">Basic filtering</a><a data-folder="07_grid" id="03_filtering_by_task_name" class="link" href="./07_grid/03_filtering_by_task_name">Task Name Search Filter</a><a data-folder="07_grid" id="04_custom_sorting" class="link" href="./07_grid/04_custom_sorting">Custom sorting function</a><a data-folder="07_grid" id="05_sort_api" class="link" href="./07_grid/05_sort_api">Using sorting methods</a><a data-folder="07_grid" id="06_without_grid" class="link" href="./07_grid/06_without_grid">Render Gantt chart without grid</a><a data-folder="07_grid" id="07_custom_buttons" class="link" href="./07_grid/07_custom_buttons">Custom Buttons in a Grid</a><a data-folder="07_grid" id="08_drag_between_levels" class="link" href="./07_grid/08_drag_between_levels">Drag and drop rows in Grid</a><a data-folder="07_grid" id="09_wbs_column" class="link" href="./07_grid/09_wbs_column">Show Task WBS Codes (Outline Numbers)</a><a data-folder="07_grid" id="10_scrollable_grid" class="link" href="./07_grid/10_scrollable_grid">Horizontal scroll inside Grid</a><a data-folder="07_grid" id="11_inline_edit_basic" class="link" href="./07_grid/11_inline_edit_basic">Inline editing</a><a data-folder="07_grid" id="12_inline_edit_key_nav" class="link" href="./07_grid/12_inline_edit_key_nav">Inline editing - keyboard navigation mode</a><a data-folder="07_grid" id="13_custom_mapping" class="link" href="./07_grid/13_custom_mapping">Inline editing - Custom keyboard mapping</a><a data-folder="07_grid" id="14_branch_ordering_highlight" class="link" href="./07_grid/14_branch_ordering_highlight">Branch ordering - highlighting mode</a>
+						</div>
+						<div class="toggler-icon">
+							<svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+								<path d="M7.15002 6.175L10.975 10L7.15002 13.825L8.33336 15L13.3334 10L8.33336 5L7.15002 6.175Z" fill="black" fill-opacity="0.5"></path>
+							</svg>
+						</div>
+					</div>
+					<div class="aside-nav-item">
+						<label for="08_api">Api</label>
+						<input type="checkbox" id="08_api" class="toggler">
+						<div class="toggler-content">
+							<a data-folder="08_api" id="01_dnd_events" class="link" href="./08_api/01_dnd_events">D'n'D Events</a><a data-folder="08_api" id="02_constraints" class="link" href="./08_api/02_constraints">Limit drag and drop dates</a><a data-folder="08_api" id="03_validation" class="link" href="./08_api/03_validation">Assignment Validation</a><a data-folder="08_api" id="04_limit_project" class="link" href="./08_api/04_limit_project">Fixed project dates</a><a data-folder="08_api" id="05_limit_drag_dates" class="link" href="./08_api/05_limit_drag_dates">Drag parent task with its children</a><a data-folder="08_api" id="06_export" class="link" href="./08_api/06_export">Export data from Gantt</a><a data-folder="08_api" id="07_export_styles" class="link" href="./08_api/07_export_styles">Export with custom styles</a><a data-folder="08_api" id="08_export_other" class="link" href="./08_api/08_export_other">Export data : MS Project, PrimaveraP6, Excel &amp; iCal</a><a data-folder="08_api" id="09_export_store" class="link" href="./08_api/09_export_store">Export data: store online</a><a data-folder="08_api" id="10_performance_tweaks" class="link" href="./08_api/10_performance_tweaks">Performance tweaks</a><a data-folder="08_api" id="11_project_structure" class="link" href="./08_api/11_project_structure">Predefined Project Structure</a><a data-folder="08_api" id="12_fit_task_text" class="link" href="./08_api/12_fit_task_text">Dynamically move task text to the right side</a><a data-folder="08_api" id="13_highlight_drag_position" class="link" href="./08_api/13_highlight_drag_position">Highlight Task Position on Drag</a><a data-folder="08_api" id="14_critical_tasks_expanding" class="link" href="./08_api/14_critical_tasks_expanding">Critical tasks expanding</a><a data-folder="08_api" id="15_show_dates_on_drag" class="link" href="./08_api/15_show_dates_on_drag">Show task dates on Drag and Drop</a><a data-folder="08_api" id="16_dynamic_progress" class="link" href="./08_api/16_dynamic_progress">Calculate Progress of Summary Tasks</a><a data-folder="08_api" id="17_show_task_slack" class="link" href="./08_api/17_show_task_slack">Show Slack time</a><a data-folder="08_api" id="18_load_from_mpp" class="link" href="./08_api/18_load_from_mpp">Import MS Project file</a><a data-folder="08_api" id="18_load_from_primaverap6" class="link" href="./08_api/18_load_from_primaverap6">Import Primavera P6 file</a><a data-folder="08_api" id="19_draggable_projects" class="link" href="./08_api/19_draggable_projects">Draggable projects</a><a data-folder="08_api" id="21_load_from_excel" class="link" href="./08_api/21_load_from_excel">Import Excel file</a><a data-folder="08_api" id="22_data_processor" class="link" href="./08_api/22_data_processor">Custom data api - using local storage</a><a data-folder="08_api" id="23_empty_gantt_with_placeholder_views" class="link" href="./08_api/23_empty_gantt_with_placeholder_views">Empty Gantt with placeholder grid and timeline</a><a data-folder="08_api" id="24_empty_state_screen" class="link" href="./08_api/24_empty_state_screen">Show empty state screen</a>
+						</div>
+						<div class="toggler-icon">
+							<svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+								<path d="M7.15002 6.175L10.975 10L7.15002 13.825L8.33336 15L13.3334 10L8.33336 5L7.15002 6.175Z" fill="black" fill-opacity="0.5"></path>
+							</svg>
+						</div>
+					</div>
+					<div class="aside-nav-item">
+						<label for="09_worktime">Worktime</label>
+						<input type="checkbox" id="09_worktime" class="toggler">
+						<div class="toggler-content">
+							<a data-folder="09_worktime" id="01_working_hours_per_day" class="link" href="./09_worktime/01_working_hours_per_day">Calculate working hours</a><a data-folder="09_worktime" id="02_working_days" class="link" href="./09_worktime/02_working_days">Duration includes only working days</a><a data-folder="09_worktime" id="03_exclude_holidays" class="link" href="./09_worktime/03_exclude_holidays">Add custom weekends/holidays</a><a data-folder="09_worktime" id="04_custom_workday_duration" class="link" href="./09_worktime/04_custom_workday_duration">Custom working days and time</a><a data-folder="09_worktime" id="05_adjust_to_worktime" class="link" href="./09_worktime/05_adjust_to_worktime">Correct task position on drag</a><a data-folder="09_worktime" id="06_task_calendars" class="link" href="./09_worktime/06_task_calendars">Task level calendars</a><a data-folder="09_worktime" id="07_resource_calendars" class="link" href="./09_worktime/07_resource_calendars">Resource level calendars</a><a data-folder="09_worktime" id="08_project_calendars" class="link" href="./09_worktime/08_project_calendars">Project level calendars</a><a data-folder="09_worktime" id="09_decimal_durations" class="link" href="./09_worktime/09_decimal_durations">Decimal durations for tasks</a><a data-folder="09_worktime" id="10_merge_calendars" class="link" href="./09_worktime/10_merge_calendars">Merge work Calendars of different resources</a><a data-folder="09_worktime" id="11_working_hours_with_minutes" class="link" href="./09_worktime/11_working_hours_with_minutes">Specify work time with minute precision (8:30-17:30)</a><a data-folder="09_worktime" id="12_calendar_ranges" class="link" href="./09_worktime/12_calendar_ranges">Different worktimes for different time periods</a>
+						</div>
+						<div class="toggler-icon">
+							<svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+								<path d="M7.15002 6.175L10.975 10L7.15002 13.825L8.33336 15L13.3334 10L8.33336 5L7.15002 6.175Z" fill="black" fill-opacity="0.5"></path>
+							</svg>
+						</div>
+					</div>
+					<div class="aside-nav-item">
+						<label for="10_layout">Layout</label>
+						<input type="checkbox" id="10_layout" class="toggler">
+						<div class="toggler-content">
+							<a data-folder="10_layout" id="01_rightside_columns" class="link" href="./10_layout/01_rightside_columns">Grid columns rightside of gantt</a><a data-folder="10_layout" id="02_resource_panel" class="link" href="./10_layout/02_resource_panel">Gantt chart with resource panel</a><a data-folder="10_layout" id="03_scale_at_bottom" class="link" href="./10_layout/03_scale_at_bottom">Time scale at the bottom of gantt</a><a data-folder="10_layout" id="04_rtl" class="link" href="./10_layout/04_rtl">Right to left gantt</a>
+						</div>
+						<div class="toggler-icon">
+							<svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+								<path d="M7.15002 6.175L10.975 10L7.15002 13.825L8.33336 15L13.3334 10L8.33336 5L7.15002 6.175Z" fill="black" fill-opacity="0.5"></path>
+							</svg>
+						</div>
+					</div>
+					<div class="aside-nav-item">
+						<label for="11_resources">Resources</label>
+						<input type="checkbox" id="11_resources" class="toggler">
+						<div class="toggler-content">
+							<a data-folder="11_resources" id="01_assigning_resources" class="link" href="./11_resources/01_assigning_resources">Assigning owners to tasks</a><a data-folder="11_resources" id="02_resource_calendars" class="link" href="./11_resources/02_resource_calendars">Resource calendars</a><a data-folder="11_resources" id="03_break_down_by_resource" class="link" href="./11_resources/03_break_down_by_resource">Break down by resources</a><a data-folder="11_resources" id="04_resource_usage_diagram" class="link" href="./11_resources/04_resource_usage_diagram">Resource load diagram</a><a data-folder="11_resources" id="05_resource_usage_templates" class="link" href="./11_resources/05_resource_usage_templates">Templates of the Resource diagram</a><a data-folder="11_resources" id="06_assign_multiple_owners" class="link" href="./11_resources/06_assign_multiple_owners">Assign multiple owners to a task</a><a data-folder="11_resources" id="07_assign_multiple_resources" class="link" href="./11_resources/07_assign_multiple_resources">Assign multiple resources</a><a data-folder="11_resources" id="08_resource_usage_groups" class="link" href="./11_resources/08_resource_usage_groups">Group by multiple resources</a><a data-folder="11_resources" id="09_resource_histogram" class="link" href="./11_resources/09_resource_histogram">Resource histogram</a><a data-folder="11_resources" id="10_resource_histogram_workload_percents" class="link" href="./11_resources/10_resource_histogram_workload_percents">Assign workload in percents</a><a data-folder="11_resources" id="11_resource_histogram_display_tasks" class="link" href="./11_resources/11_resource_histogram_display_tasks">Show all assigned tasks in the resource panel</a><a data-folder="11_resources" id="12_work_and_material_resources" class="link" href="./11_resources/12_work_and_material_resources">Work and material resources</a><a data-folder="11_resources" id="13_resource_assignments_for_days" class="link" href="./11_resources/13_resource_assignments_for_days">Assign resource values to specific days</a><a data-folder="11_resources" id="14_resource_load_with_zoom" class="link" href="./11_resources/14_resource_load_with_zoom">Resource load diagram with different zoom levels</a>
+						</div>
+						<div class="toggler-icon">
+							<svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+								<path d="M7.15002 6.175L10.975 10L7.15002 13.825L8.33336 15L13.3334 10L8.33336 5L7.15002 6.175Z" fill="black" fill-opacity="0.5"></path>
+							</svg>
+						</div>
+					</div>
+					<div class="aside-nav-item">
+						<label for="20_multiple">Multiple</label>
+						<input type="checkbox" id="20_multiple" class="toggler">
+						<div class="toggler-content">
+							<a data-folder="20_multiple" id="01_basic" class="link" href="./20_multiple/01_basic">Multiple Gantts on the page</a><a data-folder="20_multiple" id="03_layout" class="link" href="./20_multiple/03_layout">Gantts in dhtmlxLayout cells (dhtmlxSuite v8.x)</a><a data-folder="20_multiple" id="05_jquery" class="link" href="./20_multiple/05_jquery">jQuery initialization</a><a data-folder="20_multiple" id="06_export" class="link" href="./20_multiple/06_export">Export data from Gantt</a><a data-folder="20_multiple" id="07_keyboard_navigation" class="link" href="./20_multiple/07_keyboard_navigation">Keyboard navigation, multiple gantts</a><a data-folder="20_multiple" id="08_constructor_destructor" class="link" href="./20_multiple/08_constructor_destructor">Using gantt constructor and destructor</a>
+						</div>
+						<div class="toggler-icon">
+							<svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+								<path d="M7.15002 6.175L10.975 10L7.15002 13.825L8.33336 15L13.3334 10L8.33336 5L7.15002 6.175Z" fill="black" fill-opacity="0.5"></path>
+							</svg>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- more-link-container -->
+			<div class="more-link-container">
+				<div>
+					<a href="https://snippet.dhtmlx.com/40tsh9uz?text=gantt." title="" class="more-link" target="_blank">
+						<div class="more-link__icon">
+							<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path id="Vector" d="M0 10.6583L8.825 1.83332H3.33333V0.166656H11.6667V8.49999H10V3.00832L1.175 11.8333L0 10.6583Z" fill="#606770" fill-opacity="0.7"></path>
+							</svg>
+						</div>
+						<span>More in Snippet Tool</span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="page-container">
+		<div class="demo-container">
+			<!-- demo-nav-bar -->
+			<div class="demo-nav-bar">
+				<!-- demo-nav-bar mobile-->
+				<div class="demo-nav-bar-dropdown mobile">
+					<div class="demo-nav-bar-dropdown-chosen" onclick="navDropdown();">
+						<div class="demo-nav-bar-dropdown-chosen-label" id="nav-dropdown-chosen">Demo</div>
+
+						<div class="demo-nav-bar-dropdown-arrow">
+							<svg class="arrow-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+								<path d="M7.15002 6.175L10.975 10L7.15002 13.825L8.33336 15L13.3334 10L8.33336 5L7.15002 6.175Z" fill="black" fill-opacity="0.5"></path>
+							</svg>
+						</div>
+					</div>
+					<!-- demo-nav-bar-dropdown-list mobile-->
+					<div class="demo-nav-bar-dropdown-list" id="nav-dropdown-list">
+						<div class="demo-nav-bar-dropdown-row">
+							<span class="demo-nav-bar-btn show_demo active" @onclick='()=>toggle_demo("demo")'>Demo</span>
+						</div>
+
+						<div class="demo-nav-bar-dropdown-row">
+							<span class="demo-nav-bar-btn show_code" @onclick='()=>toggle_demo("code")'>Source code</span>
+						</div>
+
+						<div class="demo-nav-bar-dropdown-row">
+							<span class="demo-nav-bar-btn show_api" @onclick='()=>toggle_demo("api")'>API reference</span>
+						</div>
+					</div>
+				</div>
+				<div class="left-side-items">
+					<span class="demo-nav-bar-btn desktop show_demo active" @onclick='()=>toggle_demo("demo")'>Demo</span>
+					<span class="demo-nav-bar-btn desktop show_code" @onclick='()=>toggle_demo("code")'>
+						Source code
+					</span>
+					<span class="demo-nav-bar-btn desktop show_api" @onclick='()=>toggle_demo("api")'>
+						API reference
+					</span>
+				</div>
+				<div class="right-side-items">
+					<span class="demo-nav-bar-btn share" onclick="shareSample()">Share</span>
+				</div>
+			</div>
+			<div class="demo-body demo">				
+				<CascadingValue Value="showType">
+					@Body
+				</CascadingValue>
+			</div>
+		</div>
+	</div>
+</section>
+@code{
+	private string showType = "demo";
+	private void toggle_demo(string type)
+	{
+		this.showType = type;
+		JS.InvokeVoidAsync("toggle_dropdown");
+	}
+}
