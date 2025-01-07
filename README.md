@@ -1,2 +1,3 @@
 # BlazorGantt
-基于dhtmlxGantt实现的甘特图组件，目前仅做到了数据展现，方法及插槽暂未实现，若需可按照dhtmlxGantt的文档及微软的Balzor文档，自行扩展。
+基于dhtmlxGantt实现的甘特图组件，目前仅实现了Initialization部分的Demo,可以自行查看本存储库获取Demo。
+可按照dhtmlxGantt的文档及微软的Balzor文档，自行扩展。
