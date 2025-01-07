@@ -1,0 +1,19 @@
+﻿@inject IJSRuntime JSRuntime
+<pre class="language-razor" @ref="el">
+<code class="language-razor">
+@ChildContent
+</code>
+</pre>
+
+@code {
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+    private ElementReference el;
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("CodeHighlight.mounted", el);
+        }
+    }
+}
