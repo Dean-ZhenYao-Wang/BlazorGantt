@@ -4,10 +4,28 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <Company>Wang ZhenYao</Company>
-    <Description>基于dhtmlxGantt实现的甘特图组件，目前仅做到了数据展现，方法及插槽暂未实现，若需可按照dhtmlxGantt的文档及微软的Balzor文档，自行扩展。</Description>
+    <Description>基于dhtmlxGantt实现的甘特图组件，目前仅实现了Initialization部分的Demo,可以自行查看本存储库获取Demo。
+可按照dhtmlxGantt的文档及微软的Balzor文档，自行扩展。</Description>
     <PackageTags>Blazor;Gantt;dhtmlxGantt</PackageTags>
+    <Version>2.0.1</Version>
+    <Authors>Wang ZhenYao</Authors>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>图标.png</PackageIcon>
+    <RepositoryUrl>https://github.com/Dean-ZhenYao-Wang/BlazorGantt</RepositoryUrl>
+    <PackageReleaseNotes>使用方式有所改变，需要在index.html中引入：
+<link href="_content/BlazorGantt/index.css" rel="stylesheet" />
+<script src="_content/BlazorGantt/index.js" type="module"></script>
+基本功能已具备，其余功能及Demo正在持续完善中。</PackageReleaseNotes>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\图标.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="wwwroot\index.css" />
   </ItemGroup>
   <ItemGroup>
