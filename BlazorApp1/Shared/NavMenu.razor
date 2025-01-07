@@ -1,124 +1,189 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">BlazorApp1</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+﻿@inherits LayoutComponentBase
+@inject IJSRuntime JS
+
+<div class="sidebar" id="sidebar">
+    <button class="toggle-btn" @onclick="ToggleSidebar">☰</button>
+    <div class="menu-title-vertical" id="vertical-title">Gantt samples</div>
+    <div class="menu-content">
+        <div class="menu-item">
+            <div class="menu-title" @onclick='() => ToggleMenu("menu1", "arrow1")'>
+                Initialization <span id="arrow1">↓</span>
+            </div>
+            <div class="submenu" id="menu1">
+                <a href="01_initialization/01_basic_init">Basic initialization</a>
+                <a href="#">子菜单 1.2</a>
+            </div>
+        </div>
+        <div class="menu-item">
+            <div class="menu-title" @onclick='() => ToggleMenu("menu2", "arrow2")'>
+                菜单项 2 <span id="arrow2">↓</span>
+            </div>
+            <div class="submenu" id="menu2">
+                <a href="#">子菜单 2.1</a>
+                <a href="#">子菜单 2.2</a>
+            </div>
+        </div>
+        <div class="menu-item">
+            <div class="menu-title" @onclick='() => ToggleMenu("menu3", "arrow3")'>
+                菜单项 3 <span id="arrow3">↓</span>
+            </div>
+            <div class="submenu" id="menu3">
+                <a href="#">子菜单 3.1</a>
+                <a href="#">子菜单 3.2</a>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="01_initialization/01_basic_init" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Basic initialization
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="01_initialization/02_load_json">
-                <span class="oi oi-plus" aria-hidden="true"></span> Load data from JSON file
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="01_initialization/03_load_xml">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Load data from XML file
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="01_initialization/04_save_rest">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Backend storage using REST API
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="01_initialization/06_touch_forced">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Forced touch mode
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="01_initialization/07_jquery">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> jQuery integration
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="01_initialization/08_explicit_time_range">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Define displayed date range
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="01_initialization/09_backward_compatibility">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Loading data in Gantt 1.6 format
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="01_initialization/10_fixed_size">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fixed size gantt
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="01_initialization/11_clickable_links">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Clickable links
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="01_initialization/12_localization">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Localization
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="01_initialization/13_project_duration">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Project duration
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="01_initialization/14_reinitializtion">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> ReInit in different container
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="01_initialization/15_connector_json_enddate">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Loading tasks start/end dates
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="01_initialization/16_projects_and_milestones">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Projects and milestones
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="01_initialization/17_bootstrap">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Bootstrap layout
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="01_initialization/18_backward_planning">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Backward planning
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="01_initialization/19_tasks_without_dates">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Show Unscheduled Tasks
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="01_initialization/20_tasks_outside_timescale">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Tasks outside timescale
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="01_initialization/21_rollup_tasks">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Rollup tasks and milestones
-            </NavLink>
-        </div>
-    </nav>
-</div>
+<style>
+    .sidebar {
+        width: 250px;
+        background-color: #f8f9fa;
+        padding: 10px;
+        border-right: 1px solid #ddd;
+        transition: width 0.3s;
+        display: flex;
+        flex-direction: column;
+    }
+
+        .sidebar.collapsed {
+            width: 50px;
+        }
+
+    .toggle-btn {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+
+    .menu-title-vertical {
+        display: none;
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        text-align: center;
+        margin-top: 20px;
+        font-weight: bold;
+    }
+
+    .sidebar.collapsed .menu-title-vertical {
+        display: block;
+    }
+
+    .menu-content {
+        flex-grow: 1;
+        overflow-y: auto;
+    }
+
+    .menu-item {
+        margin-bottom: 10px;
+    }
+
+    .menu-title {
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .sidebar.collapsed .menu-title,
+    .sidebar.collapsed .submenu {
+        display: none;
+    }
+
+    .submenu {
+        display: none;
+        padding-left: 20px;
+    }
+
+        .submenu a {
+            display: block;
+            margin: 5px 0;
+            text-decoration: none;
+            color: #007bff;
+        }
+
+            .submenu a:hover {
+                text-decoration: underline;
+            }
+</style>
 
 @code {
-    private bool collapseNavMenu = true;
+    private Dictionary<string, bool> menuStates = new Dictionary<string, bool>();
 
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
+    protected override async Task OnInitializedAsync()
     {
-        collapseNavMenu = !collapseNavMenu;
+        var menuStatesJson = await JS.InvokeAsync<string>("localStorage.getItem", "menuStates");
+        if (!string.IsNullOrEmpty(menuStatesJson))
+        {
+            menuStates = System.Text.Json.JsonSerializer.Deserialize<Dictionary<string, bool>>(menuStatesJson);
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        foreach (var menuState in menuStates)
+        {
+            var menuId = menuState.Key;
+            var isExpanded = menuState.Value;
+            if (isExpanded)
+            {
+                await JS.InvokeVoidAsync("eval", $"document.getElementById('{menuId}').style.display = 'block';");
+                await JS.InvokeVoidAsync("eval", $"document.getElementById('{menuId.Replace("menu", "arrow")}').textContent = '↑';");
+            }
+            else
+            {
+                await JS.InvokeVoidAsync("eval", $"document.getElementById('{menuId}').style.display = 'none';");
+                await JS.InvokeVoidAsync("eval", $"document.getElementById('{menuId.Replace("menu", "arrow")}').textContent = '↓';");
+            }
+        }
+    }
+
+    private async Task ToggleMenu(string menuId, string arrowId)
+    {
+        var display = await JS.InvokeAsync<string>("eval", $"document.getElementById('{menuId}').style.display");
+        if (display == "none" || string.IsNullOrEmpty(display))
+        {
+            await JS.InvokeVoidAsync("eval", $"document.getElementById('{menuId}').style.display = 'block';");
+            await JS.InvokeVoidAsync("eval", $"document.getElementById('{arrowId}').textContent = '↑';");
+            menuStates[menuId] = true;
+        }
+        else
+        {
+            await JS.InvokeVoidAsync("eval", $"document.getElementById('{menuId}').style.display = 'none';");
+            await JS.InvokeVoidAsync("eval", $"document.getElementById('{arrowId}').textContent = '↓';");
+            menuStates[menuId] = false;
+        }
+        await JS.InvokeVoidAsync("localStorage.setItem", "menuStates", System.Text.Json.JsonSerializer.Serialize(menuStates));
+    }
+
+    private async Task ToggleSidebar()
+    {
+        await JS.InvokeVoidAsync("eval", "document.getElementById('sidebar').classList.toggle('collapsed');");
+
+        var isCollapsed = await JS.InvokeAsync<bool>("eval", "document.getElementById('sidebar').classList.contains('collapsed')");
+        if (isCollapsed)
+        {
+            await JS.InvokeVoidAsync("eval", "document.querySelectorAll('.submenu').forEach(submenu => submenu.style.display = 'none');");
+            await JS.InvokeVoidAsync("eval", "document.querySelectorAll('.menu-title span').forEach(arrow => arrow.textContent = '↓');");
+        }
+        else
+        {
+            foreach (var menuState in menuStates)
+            {
+                var menuId = menuState.Key;
+                var isExpanded = menuState.Value;
+                if (isExpanded)
+                {
+                    await JS.InvokeVoidAsync("eval", $"document.getElementById('{menuId}').style.display = 'block';");
+                    await JS.InvokeVoidAsync("eval", $"document.getElementById('{menuId.Replace("menu", "arrow")}').textContent = '↑';");
+                }
+                else
+                {
+                    await JS.InvokeVoidAsync("eval", $"document.getElementById('{menuId}').style.display = 'none';");
+                    await JS.InvokeVoidAsync("eval", $"document.getElementById('{menuId.Replace("menu", "arrow")}').textContent = '↓';");
+                }
+            }
+        }
     }
 }
+
