@@ -1,0 +1,14 @@
+﻿<BlazorApp1.common.CodeHighlight>
+&lt;Gantt @@ref=gantt firstRender=init style="width: 100%;height: 80vh;"&gt;&lt;/Gantt&gt;
+
+@@code {
+    private Gantt gantt;
+    private void init()
+    {
+        gantt.set_property("config.date_format", "%Y-%m-%d %H:%i:%s");
+        gantt.init();
+        gantt.message(new MessageObject { text = "Task schedules are calculated from an &lt;b&gt;end dates&lt;/b&gt; and &lt;b&gt;durations&lt;/b&gt;", expire = -1 });
+        gantt.parse(common.testdata.data_end_dates);
+    }
+}
+</BlazorApp1.common.CodeHighlight>

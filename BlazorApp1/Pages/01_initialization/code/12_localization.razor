@@ -1,0 +1,65 @@
+﻿<BlazorApp1.common.CodeHighlight>
+&lt;link rel="stylesheet" href="../common/controls_styles.css"&gt;
+&lt;style&gt;
+	#gantt_here {
+	width: 100%;
+	height: 800px;
+	height: calc(100vh - 52px);
+	}
+
+&lt;/style&gt;
+&lt;div class="gantt_control"&gt;
+	&lt;label&gt;Current locale:&lt;/label&gt;
+	&lt;select class="locale_changer" @@onchange="e=&gt;changeLocale(e.Value.ToString())"&gt;
+		&lt;option class="locale_" value=""&gt;Choose locale&lt;/option&gt;
+		&lt;option class="locale_ar" value="ar"&gt;Arabic&lt;/option&gt;
+		&lt;option class="locale_be" value="be"&gt;Belarusian&lt;/option&gt;
+		&lt;option class="locale_ca" value="ca"&gt;Catalan&lt;/option&gt;
+		&lt;option class="locale_cn" value="cn"&gt;Chinese&lt;/option&gt;
+		&lt;option class="locale_hr" value="hr"&gt;Croatian&lt;/option&gt;
+		&lt;option class="locale_cs" value="cs"&gt;Czech&lt;/option&gt;
+		&lt;option class="locale_da" value="da"&gt;Danish&lt;/option&gt;
+		&lt;option class="locale_nl" value="nl"&gt;Dutch&lt;/option&gt;
+		&lt;option class="locale_" value=""&gt;English&lt;/option&gt;
+		&lt;option class="locale_fi" value="fi"&gt;Finnish&lt;/option&gt;
+		&lt;option class="locale_fr" value="fr" selected&gt;French&lt;/option&gt;
+		&lt;option class="locale_de" value="de"&gt;German&lt;/option&gt;
+		&lt;option class="locale_el" value="el"&gt;Greek&lt;/option&gt;
+		&lt;option class="locale_he" value="he"&gt;Hebrew&lt;/option&gt;
+		&lt;option class="locale_hu" value="hu"&gt;Hungarian&lt;/option&gt;
+		&lt;option class="locale_id" value="id"&gt;Indonesian&lt;/option&gt;
+		&lt;option class="locale_it" value="it"&gt;Italian&lt;/option&gt;
+		&lt;option class="locale_jp" value="jp"&gt;Japanese&lt;/option&gt;
+		&lt;option class="locale_kr" value="kr"&gt;Korean&lt;/option&gt;
+		&lt;option class="locale_no" value="no"&gt;Norwegian&lt;/option&gt;
+		&lt;option class="locale_nb" value="nb"&gt;Norwegian BokmÃ¥l&lt;/option&gt;
+		&lt;option class="locale_fa" value="fa"&gt;Persian&lt;/option&gt;
+		&lt;option class="locale_pl" value="pl"&gt;Polish&lt;/option&gt;
+		&lt;option class="locale_pt" value="pt"&gt;Portuguese&lt;/option&gt;
+		&lt;option class="locale_ro" value="ro"&gt;Romanian&lt;/option&gt;
+		&lt;option class="locale_ru" value="ru"&gt;Russian&lt;/option&gt;
+		&lt;option class="locale_sk" value="sk"&gt;Slovak&lt;/option&gt;
+		&lt;option class="locale_si" value="si"&gt;Slovenian&lt;/option&gt;
+		&lt;option class="locale_es" value="es"&gt;Spanish&lt;/option&gt;
+		&lt;option class="locale_sv" value="sv"&gt;Swedish&lt;/option&gt;
+		&lt;option class="locale_tr" value="tr"&gt;Turkish&lt;/option&gt;
+		&lt;option class="locale_ua" value="ua"&gt;Ukrainian&lt;/option&gt;
+	&lt;/select&gt;
+&lt;/div&gt;
+&lt;Gantt @@ref=gantt firstRender=init id="gantt_here" /&gt;
+
+@@code {
+	private Gantt gantt;
+	private void changeLocale(string lang)
+	{
+		gantt.i18n_setLocale(lang);
+		gantt.init();
+	}
+	private async Task init()
+	{
+		changeLocale("fr");
+		gantt.init();
+		gantt.parse(common.testdata.demo_tasks);
+	}
+}
+</BlazorApp1.common.CodeHighlight>

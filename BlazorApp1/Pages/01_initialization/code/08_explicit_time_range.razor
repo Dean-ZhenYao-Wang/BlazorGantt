@@ -1,0 +1,57 @@
+﻿<BlazorApp1.common.CodeHighlight>
+&lt;style&gt;
+    #gantt_here {
+        width: 100%;
+        height: 800px;
+        height: calc(100vh - 52px);
+    }
+
+    .gantt_control {
+        background-color: #e5e0cd;
+    }
+
+    .left-container {
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+        height: 89vh;
+    }
+&lt;/style&gt;
+&lt;div class="gantt_control"&gt;
+    &lt;label&gt;Displayed date range:&lt;/label&gt;
+    &lt;input class="start_date" type="date" @@bind="start_date" @@bind:event="oninput" @@onchange="changeDates" /&gt;
+    –
+    &lt;input class="start_date" type="date" @@bind="end_date" @@bind:event="oninput" @@onchange="changeDates" /&gt;
+
+&lt;/div&gt;
+&lt;Gantt @@ref=gantt firstRender=init class="left-container" /&gt;
+
+@@code {
+    private Gantt gantt;
+    private object[] scales = new[]
+        {
+            new{unit= "month", step= 1, format= "%M"},
+            new{unit= "year", step= 1, format= "%Y"},
+            new{unit= "day", step=1, format= "%d %M"}
+        };
+    private int scale_height = 3 * 28;
+    private DateTime start_date { get; set; } = new DateTime(2023, 03, 10);
+    private DateTime end_date { get; set; } = new DateTime(2023, 04, 20);
+    private void changeDates(ChangeEventArgs change)
+    {
+        gantt.set_property("config.scales", scales);
+        gantt.set_property("config.scale_height", scale_height);
+        gantt.set_property("config.start_date", start_date);
+        gantt.set_property("config.end_date", end_date);
+        gantt.render();
+    }
+    private void init()
+    {
+        gantt.setSkin("meadow");
+        gantt.set_property("config.scales", scales);
+        gantt.set_property("config.scale_height", scale_height);
+        gantt.init();
+        gantt.parse(common.testdata.demo_tasks);
+    }
+}
+</BlazorApp1.common.CodeHighlight>

@@ -1,22 +1,9 @@
 ﻿@page "/01_initialization/06_touch_forced"
-
-<Gantt @ref=gantt firstRender=init class="left-container" />
-
-<style>
-    .left-container {
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-    height: 89vh;
-    }
-</style>
-
-@code {
-    private Gantt gantt;
-    private void init()
-    {
-        gantt.set_property("config.touch", "force");
-        gantt.init();
-        gantt.parse(common.testdata.demo_tasks);
-    }
-}
+<PageView>
+    <Demo>
+        <BlazorApp1.Pages._01_initialization.demo._06_touch_forced />
+    </Demo>
+    <CodeSource>
+        <BlazorApp1.Pages._01_initialization.code._06_touch_forced />
+    </CodeSource>
+</PageView>

@@ -1,0 +1,30 @@
+﻿<BlazorApp1.common.CodeHighlight>
+&lt;script src="../common/webserver_warning.js"&gt;&lt;/script&gt;
+&lt;Gantt @@ref=gantt firstRender=init class="left-container" /&gt;
+&lt;style&gt;
+    .left-container {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 89vh;
+    }
+&lt;/style&gt;
+@@code {
+    private Gantt gantt;
+    private string attachEvent_onAjaxError_funcStr = 
+	@@"  if (!request.status || !request.response){
+			gantt.message({
+				text: webserverWarningText,
+				expire: -1
+			})
+		}
+	    return true;";
+    private void init()
+    {
+        gantt.attachEvent("onAjaxError", attachEvent_onAjaxError_funcStr);
+        gantt.set_property("config.date_format", "%Y-%m-%d %H:%i:%s");
+        gantt.init();
+        gantt.load("../common/data.json", "json");
+    }
+}
+</BlazorApp1.common.CodeHighlight>

@@ -1,0 +1,22 @@
+﻿<BlazorApp1.common.CodeHighlight>
+&lt;Gantt @@ref=gantt firstRender=init class="left-container" /&gt;
+
+&lt;style&gt;
+    .left-container {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 89vh;
+    }
+&lt;/style&gt;
+
+@@code {
+    private Gantt gantt;
+    private void init()
+    {
+        gantt.set_property("config.touch", "force");
+        gantt.init();
+        gantt.parse(common.testdata.demo_tasks);
+    }
+}
+</BlazorApp1.common.CodeHighlight>

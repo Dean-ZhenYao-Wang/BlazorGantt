@@ -1,63 +1,9 @@
 ﻿@page "/01_initialization/20_tasks_outside_timescale"
-@inject IJSRuntime JS
-
-<Gantt @ref=gantt firstRender=init style="width: 100%;height: 80vh;"></Gantt>
-
-@code {
-    private string id = Guid.NewGuid().ToString();
-    private Gantt gantt;
-    private DotNetObjectReference<_20_tasks_outside_timescale>? dotNetRef;
-    protected override void OnInitialized()
-    {
-        dotNetRef = DotNetObjectReference.Create(this);
-    }
-    private void init()
-    {
-        gantt.message(new MessageObject
-            {
-                text = "Timescale is limited to February 2023. <br> <b>Task #1</b> and <b>Task #3</b> are beyond this time period and are not displayed, but are listed in the grid.",
-                expire = -1
-            });
-        JS.InvokeVoidAsync("BlazorGantt.add_to_dictionary", this.id, this.dotNetRef);
-        gantt.templates_date_grid("if (!date) {return '';}" 
-        + $@"let dotnet = BlazorGantt.get_from_dictionary('{this.id}');
-            dotnet.invokeMethodAsync('grid_date_format',date);");
-        gantt.set_property("config.scale_height", 50);
-        
-        gantt.set_property("config.show_tasks_outside_timescale", true);
-        gantt.set_property("config.start_date", new DateTime(2023, 1, 1));
-        gantt.set_property("config.end_date", new DateTime(2023, 2, 1));
-        gantt.init();
-        gantt.parse(new
-        {
-            data = new object[]
-            {
-                new{id=11, text="Project #1",duration=0, type="project", progress= 0.6, open= true},
-
-                new{id=12, text="Task #1", start_date="03-01-2023", duration=5, parent=11, progress= 1, open= true},
-                new{id=13, text="Task #2", start_date="03-02-2023", type="project", parent=11, progress= 0.5, open= true},
-                new{id=14, text="Task #3", start_date="02-03-2023", duration=6, parent=11, progress= 0.8, open= true},
-                new{id=15, text="Task #4",duration=0, type="project", parent=11, progress= 0.2, open= true},
-
-                new{id=17, text="Task #2.1", start_date="03-02-2023", duration=2, parent=13, progress= 1, open= true},
-                new{id=18, text="Task #2.2", start_date="06-02-2023", duration=3, parent=13, progress= 0.8, open= true},
-                new{id=19, text="Task #2.3", start_date="10-02-2023", duration=4, parent=13, progress= 0.2, open= true},
-                new{id=20, text="Task #2.4", start_date="15-02-2023", duration=4, parent=13, progress= 0, open= true},
-                new{id=21, text="Task #4.1", start_date="03-02-2023", duration=4, parent=15, progress= 0.5, open= true},
-                new{id=22, text="Task #4.2", start_date="08-02-2023", duration=4, parent=15, progress= 0.1, open= true}
-            },
-            links = new object[]
-            {
-                new{id=1, source=17, target=18, type="0"},
-                new{id=2, source=18, target=19, type="0"},
-                new{id=3, source=19, target=20, type="0"},
-                new{id=4, source=21, target=22, type="0"}
-            }
-        });
-    }
-    [JSInvokable]
-    public async Task grid_date_format(string date){
-        this.gantt.templates_grid_date_format(date);
-    }
-    
-}
+<PageView>
+    <Demo>
+        <BlazorApp1.Pages._01_initialization.demo._20_tasks_outside_timescale />
+    </Demo>
+    <CodeSource>
+        <BlazorApp1.Pages._01_initialization.code._20_tasks_outside_timescale />
+    </CodeSource>
+</PageView>

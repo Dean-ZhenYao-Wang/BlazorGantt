@@ -1,0 +1,22 @@
+﻿@switch (showType)
+{
+    case "demo":
+        @Demo
+        break;
+    case "code":
+        @CodeSource
+        break;
+    case "api":
+        @API
+        break;
+}
+@code {
+    [CascadingParameter]
+    public string showType { get; set; }
+    [Parameter]
+    public RenderFragment Demo { get; set; }
+    [Parameter]
+    public RenderFragment CodeSource { get; set; }
+    [Parameter]
+    public RenderFragment API { get; set; }
+}

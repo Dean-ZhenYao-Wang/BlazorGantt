@@ -1,0 +1,12 @@
+﻿<BlazorApp1.common.CodeHighlight>
+&lt;Gantt @@ref=gantt firstRender=init style="width:1020px; height:400px;" /&gt;
+
+@@code {
+    private Gantt gantt;
+    private async Task init()
+    {
+        gantt.init();
+        gantt.parse(common.testdata.demo_tasks);
+    }
+}
+</BlazorApp1.common.CodeHighlight>

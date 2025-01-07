@@ -1,12 +1,9 @@
 ﻿@page "/01_initialization/10_fixed_size"
-
-<Gantt @ref=gantt firstRender=init style="width:1020px; height:400px;" />
-
-@code {
-    private Gantt gantt;
-    private async Task init()
-    {
-        gantt.init();
-        gantt.parse(common.testdata.demo_tasks);
-    }
-}
+<PageView>
+    <Demo>
+        <BlazorApp1.Pages._01_initialization.demo._10_fixed_size />
+    </Demo>
+    <CodeSource>
+        <BlazorApp1.Pages._01_initialization.code._10_fixed_size />
+    </CodeSource>
+</PageView>

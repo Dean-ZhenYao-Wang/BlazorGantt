@@ -1,0 +1,59 @@
+﻿<link rel="stylesheet" href="../common/controls_styles.css">
+<style>
+    .gantt-control {
+    /* Takes up space as per its content */
+    }
+
+    .gantt-container {
+    width: 100%;
+    height: 30vh;
+    /* Each element will grow to the same size */
+    flex: 1;
+    /* Adds scroll if content overflows */
+    overflow: auto;
+    }
+</style>
+<Gantt @ref=gantt firstRender=init class="gantt-container"></Gantt>
+<div class="gantt_control">
+    <input type="button" value="Init in another html container" @onclick="reinit">
+</div>
+<Gantt @ref=gantt2 class="gantt-container"></Gantt>
+@code {
+    private Gantt gantt;
+    private Gantt gantt2;
+    private ElementReference? currentContainer;
+    private void init()
+    {
+        gantt.init();
+        gantt.parse(new Tasks
+            {
+                data = new List<Task_Data>
+                {
+                    new Task_Data{ id= "1", text= "Project #2", start_date= "01-04-2023", duration= 18, progress= 0.4, open= true },
+                    new Task_Data{ id= "2", text= "Task #1", start_date= "02-04-2023", duration= 8, progress= 0.6, parent= "1" },
+                    new Task_Data{ id= "3", text= "Task #2", start_date= "11-04-2023", duration= 8, progress= 0.6, parent= "1" }
+                },
+                links = new List<Task_Link>
+                {
+                    new Task_Link{ id= "1", source= "1", target= "2", type= "1" },
+                    new Task_Link{ id= "2", source= "2", target= "3", type= "0" }
+                }
+            });
+    }
+    private void reinit()
+    {
+        if(currentContainer is null)
+        {
+            currentContainer = gantt2.element;
+        }
+        else if(currentContainer.Value.Id.Equals(gantt.element.Id))
+        {
+            currentContainer = gantt2.element;
+        }
+        else
+        {
+            currentContainer = gantt.element;
+        }
+        gantt.init(currentContainer.Value);
+    }
+}
