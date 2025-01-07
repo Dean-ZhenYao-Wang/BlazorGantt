@@ -61,9 +61,6 @@ window.BlazorGantt = {
     load1: function (gantt, url) {
         gantt.load(url);
     },
-    messageObj: function (gantt, message) {
-        gantt.message(message);
-    },
     message: function (gantt, message) {
         gantt.message(message);
     },
@@ -93,9 +90,6 @@ window.BlazorGantt = {
         gantt.destructor();
         element.innerHTML = "";
         this.remove_from_dictionary(id);
-    },
-    get_config: function (gantt) {
-        return gantt.config;
     },
     get_property: function (gantt, propertyName) {
         // 将属性名按点分割成数组
@@ -149,9 +143,6 @@ window.BlazorGantt = {
 
         // 从gantt对象开始递归设置属性
         recursiveGetProperty(gantt, properties, value);
-    },
-    set_config: function (gantt, config) {
-        gantt.config = this.deepMerge(gantt.config, config);
     },
     dictionary: {},
     // 方法用于向字典添加键值对

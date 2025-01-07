@@ -23,7 +23,7 @@
     private void init()
     {
         gantt.attachEvent("onAjaxError", attachEvent_onAjaxError_funcStr);
-        gantt.set_Config(new { date_format = "%Y,%,%d" });
+        gantt.set_property("config.date_format", "%Y,%,%d");
         gantt.init();
         gantt.load("../common/olddata.xml", "oldxml");
 

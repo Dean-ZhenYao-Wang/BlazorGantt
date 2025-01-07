@@ -13,10 +13,9 @@
 
 @code {
     private Gantt gantt;
-    private object config = new { touch = "force" };
     private void init()
     {
-        gantt.set_Config(config);
+        gantt.set_property("config.touch", "force");
         gantt.init();
         gantt.parse(common.testdata.demo_tasks);
     }

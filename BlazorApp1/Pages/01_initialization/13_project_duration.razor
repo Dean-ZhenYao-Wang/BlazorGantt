@@ -9,23 +9,17 @@
     private Gantt gantt;
     private async Task init()
     {
-        gantt.set_Config(new
-        {
-            lightbox = new
-            {
-                sections = new object[]
+        gantt.set_property("config.lightbox.sections", new object[]
                 {
                     new{name= "description", height= 70, map_to= "text", type= "textarea", focus= true},
                     new{name= "time", type= "duration", map_to= "auto"}
-                }
-            },
-            scale_height = 50,
-            scales = new object[]
+                });
+        gantt.set_property("config.scale_height", 50);
+        gantt.set_property("config.scales", new object[]
             {
                 new {unit= "month", format= "%F, %Y"},
                 new  {unit= "day", step= 1, format= "%j, %D"}
-            }
-        });
+            });
         gantt.init();
         gantt.parse(new Tasks
             {

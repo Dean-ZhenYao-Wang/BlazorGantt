@@ -15,10 +15,7 @@
 	private void init()
 	{
 		gantt.attachEvent("onAjaxError", attachEvent_onAjaxError_funcStr);
-		gantt.set_Config(new
-		{
-			date_format = "%Y-%m-%d %H:%i:%s"
-		});
+		gantt.set_property("config.date_format", "%Y-%m-%d %H:%i:%s");
 		gantt.init();
 		gantt.load("../common/data_start_end_dates.json");
 	}

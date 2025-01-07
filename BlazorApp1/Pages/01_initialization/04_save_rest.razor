@@ -16,7 +16,6 @@
                     @"task.start_date = task.start_date || gantt.getTaskByIndex(0).start_date || new Date();
 		task.end_date = task.end_date || gantt.getTaskByIndex(0).end_date || new Date();
 		return true;";
-    private object config = new { date_format = "%Y-%m-%d %H:%i:%s" };
     private async Task CreateDataProcessor()
     {
         var dp = await gantt.CreateDataProcessor("https://docs.dhtmlx.com/gantt/backend/data?dhxr1736072839921=1", "REST");
@@ -37,7 +36,7 @@
 
         gantt.attachEvent("onBeforeTaskAdd", attachEvent_onBeforeTaskAdd_funcStr);
 
-        gantt.set_Config(config);
+        gantt.set_property("config.date_format", "%Y-%m-%d %H:%i:%s");
         gantt.init();
         gantt.load("https://docs.dhtmlx.com/gantt/backend/data?dhxr1736087704660=1");
 

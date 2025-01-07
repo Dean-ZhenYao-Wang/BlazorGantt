@@ -1,20 +1,20 @@
 ﻿@page "/01_initialization/08_explicit_time_range"
 <style>
     #gantt_here {
-        width: 100%;
-        height: 800px;
-        height: calc(100vh - 52px);
+    width: 100%;
+    height: 800px;
+    height: calc(100vh - 52px);
     }
 
     .gantt_control {
-        background-color: #e5e0cd;
+    background-color: #e5e0cd;
     }
 
     .left-container {
-        overflow: hidden;
-        position: relative;
-        width: 100%;
-        height: 89vh;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: 89vh;
     }
 </style>
 <div class="gantt_control">
@@ -39,23 +39,17 @@
     private DateTime end_date { get; set; } = new DateTime(2023, 04, 20);
     private void changeDates(ChangeEventArgs change)
     {
-        gantt.set_Config(new
-        {
-            scales = scales,
-            scale_height = scale_height,
-            start_date = start_date,
-            end_date = end_date
-        });
+        gantt.set_property("config.scales", scales);
+        gantt.set_property("config.scale_height", scale_height);
+        gantt.set_property("config.start_date", start_date);
+        gantt.set_property("config.end_date", end_date);
         gantt.render();
     }
     private void init()
     {
         gantt.setSkin("meadow");
-        gantt.set_Config(new
-        {
-            scales = scales,
-            scale_height = scale_height,
-        });
+        gantt.set_property("config.scales", scales);
+        gantt.set_property("config.scale_height", scale_height);
         gantt.init();
         gantt.parse(common.testdata.demo_tasks);
     }

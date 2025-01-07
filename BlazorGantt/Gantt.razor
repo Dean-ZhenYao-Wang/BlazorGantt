@@ -49,14 +49,6 @@
     {
         await JS.InvokeVoidAsync("BlazorGantt.parse", this.js_gantt, tasks);
     }
-    public async Task set_Config(object config)
-    {
-        await JS.InvokeVoidAsync("BlazorGantt.set_config", this.js_gantt, config);
-    }
-    public async Task<IJSObjectReference> get_Config()
-    {
-        return await JS.InvokeAsync<IJSObjectReference>("BlazorGantt.get_config", this.js_gantt);
-    }
     public async Task<T> get_Property<T>(string propertyName)
     {
         return await JS.InvokeAsync<T>("BlazorGantt.get_property", this.js_gantt, propertyName);
@@ -86,7 +78,7 @@
     }
     public async Task message(MessageObject messageObj)
     {
-        await JS.InvokeVoidAsync("BlazorGantt.messageObj", this.js_gantt, messageObj);
+        await JS.InvokeVoidAsync("BlazorGantt.message", this.js_gantt, messageObj);
     }
     public async Task message(string message)
     {
